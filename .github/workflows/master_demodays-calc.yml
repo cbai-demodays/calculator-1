@@ -26,7 +26,19 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+      
+        if: github.event_name == 'npm ERR'
+      - name: Jira Create issue
+        uses: atlassian/gajira-create@v2.0.1
+        with:
+          project: Demo Days Calculator
+          issuetype: In Progress
+          summary: |
+            Test failed for ${{ github.repository }}
 
+      - name: Log created issue
+        run: echo "Issue ${{ steps.create.outputs.issue }} was created"
+        
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
