@@ -25,7 +25,7 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-         
+        if: failure()
       - name: Login
         uses: atlassian/gajira-login@master
         env:
