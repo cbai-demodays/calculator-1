@@ -38,7 +38,7 @@ jobs:
         uses: atlassian/gajira-create@master
         with:
           project: DDC
-          issuetype: Epic
+          issuetype: Task
           summary: |
             Test Failed for ${{ github.repository }}
 
