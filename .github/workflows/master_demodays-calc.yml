@@ -37,8 +37,8 @@ jobs:
         id: create
         uses: atlassian/gajira-create@master
         with:
-          project: Demo Days Calculator
-          issuetype: Bug
+          project: 'Demo Days Calculator'
+          issuetype: 'Bug'
           summary: |
             Test Failed for ${{ github.repository }}
 
