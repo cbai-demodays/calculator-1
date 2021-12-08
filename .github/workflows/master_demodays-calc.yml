@@ -25,16 +25,16 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          npm run test --if-present
-          if: failure()
-          - name: Create
-            id: create
-            uses: atlassian/gajira-create@master
-            with:
-              project: Demo Days Calculator
-              issuetype: Bug
-              summary: |
-                Test Failed for ${{ github.repository }}
+          #npm run test --if-present
+          #if: ${{ failure() }}
+      - name: Create
+        id: create
+        uses: atlassian/gajira-create@master
+        with:
+          project: Demo Days Calculator
+          issuetype: Bug
+          summary: |
+            Test Failed for ${{ github.repository }}
 
 
       - name: Log created issue
