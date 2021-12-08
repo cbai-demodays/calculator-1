@@ -26,25 +26,25 @@ jobs:
           npm install
           npm run build --if-present
         if: failure()
-      - name: Login
-        uses: atlassian/gajira-login@master
-        env:
-          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
-          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-          
-      - name: Create Ticket
-        id: create
-        uses: atlassian/gajira-create@master
-        with:
-          project: DDC
-          issuetype: Task
-          summary: |
-            Test Failed for ${{ github.repository }}
+          - name: Login
+            uses: atlassian/gajira-login@master
+            env:
+              JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+              JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+              JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+
+          - name: Create Ticket
+            id: create
+            uses: atlassian/gajira-create@master
+            with:
+              project: DDC
+              issuetype: Task
+              summary: |
+                Test Failed for ${{ github.repository }}
 
 
-      - name: Log created issue
-        run: echo "Issue ${{ steps.create.outputs.issue }} was created"
+          - name: Log created issue
+            run: echo "Issue ${{ steps.create.outputs.issue }} was created"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
