@@ -25,13 +25,27 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          # npm run test --if-present
-
+          npm run test --if-present
+      - name: Login
+        uses: atlassian/gajira-login@master
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      - name: Create
+        id: create
+        uses: atlassian/gajira-create@master
+        with:
+          project: DDC
+          issuetype: Task
+          summary: |
+            Test found for ${{ github.repository }}
+            
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: node-app
-          path: .
+            name: node-app
+            path: .
 
   deploy:
     runs-on: ubuntu-latest
