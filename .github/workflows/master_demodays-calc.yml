@@ -26,8 +26,10 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+        
       - name: Login
         uses: atlassian/gajira-login@master
+        if: failure()
         env:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
@@ -35,6 +37,7 @@ jobs:
       - name: Create
         id: create
         uses: atlassian/gajira-create@master
+        if: failure()
         with:
           project: DDC
           issuetype: Task
